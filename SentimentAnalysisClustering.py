@@ -15,8 +15,10 @@ np.random.seed(19680801)
 
 
 N = len([[0, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
-x = np.array([[0, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
-y = np.array([[0, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
+X = np.array([[0, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
+X_embedded = TSNE(n_components=2).fit_transform(X)
+x = X_embedded
+y = X_embedded
 colors = np.random.rand(N)
 area = np.pi * (15 * np.random.rand(N))**2  # 0 to 15 point radii
 
