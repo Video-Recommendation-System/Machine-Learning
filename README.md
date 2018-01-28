@@ -3,7 +3,7 @@ Contains all ML aspects of hackathon project.
 
 ## Usage
 ```
-$ FLASK_APP=machinelearning/api.py flask run
+$ python machinelearning/api.py
 ```
 
 ## Setup
