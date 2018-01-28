@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Webpage</title>
+</head>
+<body>
+    <ul id="navigation">
+    {% for item in videos %}
+    <li><a href="{{ item.video_url }}"><img src="{{ item.thumbnail_url }}"/>{{ item.video_title }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
+
