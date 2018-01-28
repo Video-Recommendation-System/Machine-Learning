@@ -42,9 +42,11 @@ def train_clustering(df):
 
     return (X_isomap, kmeans_object)
 
-def predict(model, vector):
+def predict(data, model, vector):
     X_isomap = model[0]
     kmeans_object = model[1]
+    kmeans_labels = kmeans_object
+    cluster_labels = kmeans_labels.labels_
 
     #Prediction w/ arbitrary vector
     arb_vect = vector
@@ -61,7 +63,7 @@ def predict(model, vector):
     #Create a list of video ids corresponding to all in the cluster that is most similar to the provided vector
     video_ids = []
     for i in indicies:
-            video_ids.append(df["video_id"].iloc[i])
+            video_ids.append(data["video_id"].iloc[i])
     #Print the video Ids
     return video_ids
 

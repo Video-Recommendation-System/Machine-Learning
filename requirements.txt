@@ -4,3 +4,5 @@ pandas
 matplotlib
 scipy
 Flask
+yapi
+google-cloud-language
