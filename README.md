@@ -1,6 +1,11 @@
 # Machine-Learning
 Contains all ML aspects of hackathon project.
 
+## Usage
+```
+$ FLASK_APP=machinelearning/api.py flask run
+```
+
 ## Setup
 ```
 $ virtualenv -p /usr/bin/python2.7 env
