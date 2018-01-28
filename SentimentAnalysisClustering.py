@@ -39,24 +39,22 @@ y = kmeans_cluster[:, 1]
 
 #Prediction w/ arbitrary vector
 arb_vect = X[0]
-#print(arb_vect)
+#Transform the vector & perform a prediction to get the most similar cluster
 transformed_arb_vect = X_isomap.transform(np.expand_dims(arb_vect, axis=0))
-prediction_vect = kmeans_labels.predict(transformed_arb_vect)
-#print(prediction_vect)
+prediction_cluster = kmeans_labels.predict(transformed_arb_vect)
 
+#Create a list of indicies
+indicies = []
+for i in range(0, len(cluster_labels), 1):
+	if cluster_labels[i] == prediction_cluster[0]:
+		indicies.append(i)
 
-'''
-return all ids in cluster
-'''
-
-
-
-
-
-
-
-
-
+#Create a list of video ids corresponding to all in the cluster that is most similar to the provided vector
+video_ids = []
+for i in indicies:
+	video_ids.append(df["video_id"].iloc[i])
+#Print the video Ids
+print(video_ids)
 
 #Plot
 plt.scatter(x, y, s=50, c=cluster_labels, alpha=0.5)
