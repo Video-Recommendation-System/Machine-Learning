@@ -7,7 +7,8 @@ from sklearn.datasets import load_iris
 import math
 import pandas as pd
 
-k_function = lambda N: int(round(math.sqrt(N)))
+#k_function = lambda N: int(round(math.sqrt(N)))
+k_function = lambda N: int(round(math.sqrt(N * (N / 8.0))))
 
 def train_clustering(df):
     """

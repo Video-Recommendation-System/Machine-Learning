@@ -4,6 +4,7 @@ from flask import Flask, request, render_template
 from google.cloud import language
 
 import json
+import random
 import pandas as pd
 import yapi
 
@@ -38,13 +39,16 @@ def recommendations():
     vector = get_video_vector(last_video)
     print(vector)
     recommended_video_ids = predict(data, model, vector)
-    return str(get_video_info(recommended_video_ids, data))
+    s = get_video_info(recommended_video_ids, data)
+    random.shuffle(s)
+    return str(s)
 
 @app.route("/<video>")
 def video_rec(video):
     vector = get_video_vector(video)
     recommended_video_ids = predict(data, model, vector)
     recommended = get_video_info(recommended_video_ids, data)
+    random.shuffle(recommended)
 
     print(recommended)
 
