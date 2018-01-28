@@ -1,26 +1,37 @@
-'''
-import numpy as np
-from sklearn.manifold import TSNE
-X = np.array([[0, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
-X_embedded = TSNE(n_components=2).fit_transform(X)
-X_embedded.shape
-'''
-
+from __future__ import division, print_function
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
+from sklearn.cluster import KMeans
+from sklearn.datasets import load_iris
+import math
 
 # Fixing random state for reproducibility
 np.random.seed(19680801)
 
+X = load_iris()['data']
+N = len(X)
+#print(X)
+#print(N)
+#for sub_array in X:
+#	print(sub_array)
+#print(N)
 
-N = len([[0, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
-X = np.array([[0, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
 X_embedded = TSNE(n_components=2).fit_transform(X)
-x = X_embedded
-y = X_embedded
-colors = np.random.rand(N)
-area = np.pi * (15 * np.random.rand(N))**2  # 0 to 15 point radii
+k = int(round(math.sqrt(N)))
+kmeans = KMeans(n_clusters=k, random_state=0).fit_transform(X_embedded)
+kmeans_cluster = KMeans(n_clusters=k, random_state=0).fit(X_embedded)
+cluster_labels = kmeans_cluster.labels_
 
-plt.scatter(x, y, s=area, c=colors, alpha=0.5)
+
+for i in cluster_labels:
+	i = i * 23
+
+#colors = np.array(cluster_labels)
+
+x = kmeans[:, 0]
+y = kmeans[:, 1]
+
+
+plt.scatter(x, y, s=50, c=cluster_labels, alpha=0.5)
 plt.show()
