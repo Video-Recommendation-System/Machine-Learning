@@ -2,6 +2,8 @@ import numpy as np
 import math
 import pandas as pd
 
+from sklearn.manifold import TSNE
+
 def test():
     data_raw = pd.read_csv("../../youtube-scraper/output.csv")
 
@@ -14,11 +16,30 @@ def test():
     wcs = [get_word_counts(d[1]) for d in data]
     data2 = [(data[i][0], wcs[i]) for i in range(0, len(data))]
 
-    reps = kmedoids(40, 10, data2, difference)
+    distances = pairwise_distances(wcs, difference)
+
+    model = TSNE(metric="precomputed")
+    y = model.fit_transform(distances)
+
+    data_raw["X"] = y[:,0]
+    data_raw["Y"] = y[:,1]
+
+    reps = kmedoids(10, 10, data2, difference)
 
     data_raw["cluster"] = [get_cluster(reps, wc, difference) for wc in wcs]
 
     data_raw.to_csv("results.csv", index=False)
+
+def pairwise_distances(X, diffF):
+    distances = []
+    for i in range(0, len(X)):
+        dist_row = []
+        for j in range(0, len(X)):
+            dist_row.append(diffF(X[i], X[j]))
+
+        distances.append(np.array(dist_row))
+
+    return np.array(distances)
 
 def get_cluster(reps, wc, diffF):
     most_simmilar = None
